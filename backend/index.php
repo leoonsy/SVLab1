@@ -3,7 +3,10 @@ require_once 'core/cors.php';
 require_once 'core/rest.php';
 require_once 'core/Auth.php';
 
-header('Content-Type: application/json');
+// header('Content-Type: application/json');
+
+if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' )
+    sendResponse(['success' => false, 'message' => 'Отсутствует заголовок HTTP_X_REQUESTED_WITH']);
 
 $auth = new Auth();
 $headers = getallheaders();

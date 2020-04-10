@@ -84,11 +84,13 @@ class Auth
             throw new Exception('Пароль должен быть от 3 до 20 символов и использовать латинский алфавит или цифры');
 
         try {
-            $roleId = $db->getFirst("SELECT id FROM roles WHERE role = ?", [$role], PDO::FETCH_OBJ)->id;
-            $success = $db->query("INSERT INTO users (login, password, role_id) VALUES (?, ?, ?)", [$login, password_hash($password, PASSWORD_DEFAULT), $roleId]);
-            if (!$success)
+            $existingUser = $db->getFirst('SELECT id FROM users WHERE login = ?', [$login]);
+            if ($existingUser)
                 throw new Exception('Пользователь с таким логином уже существует');
-        } catch (Exception $e) {
+
+            $roleId = $db->getFirst("SELECT id FROM roles WHERE role = ?", [$role], PDO::FETCH_OBJ)->id;
+            $db->query("INSERT INTO users (login, password, role_id) VALUES (?, ?, ?)", [$login, password_hash($password, PASSWORD_DEFAULT), $roleId]);
+        } catch (PDOException $e) {
             throw new Exception("Неизвестная ошибка");
         }
     }

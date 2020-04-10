@@ -1,19 +1,16 @@
 # soft-vuln-lab1
 
-## Project setup
+## Установка проекта
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Компиляция и hot-reloads для разработки
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Компиляция для production
 ```
 npm run build
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

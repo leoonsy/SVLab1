@@ -1,22 +1,7 @@
 <template>
   <div id="wrapper">
     <div id="content">
-      <nav>
-        <div class="nav-wrapper">
-          <a href="#" class="brand-logo nav-wrapper__brand">SOFT-VULN-LAB1</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li>
-              <router-link to="/">Список дел</router-link>
-            </li>
-            <li>
-              <router-link to="/profile">Профиль</router-link>
-            </li>
-            <li>
-              <a href="/" @click.prevent="logout">Выход</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+      <Navbar />
       <slot />
     </div>
     <div id="footer"></div>
@@ -24,16 +9,15 @@
 </template>
 <script>
 import Loader from "@/components/Loader";
+import Navbar from "@/components/Navbar";
 export default {
+  name: 'MainLayout',
+  components: {
+    Navbar
+  }
   // data: () => ({
   //   loading: false
   // }),
-  methods: {
-    async logout() {
-      await this.$store.dispatch('logout');
-      this.$router.push({ name: 'login' });
-    }
-  },
   // components: {
   //   Loader
   // },
@@ -48,35 +32,20 @@ export default {
 </script>
 <style lang="scss">
 #wrapper {
-    display: flex;
-    flex: 1 1 auto; //for IE10-11 fix footer
-    flex-flow: column nowrap;
-    min-height: 100vh;
+  display: flex;
+  flex: 1 1 auto; //for IE10-11 fix footer
+  flex-flow: column nowrap;
+  min-height: 100vh;
 }
 
 #content {
-    flex: 1 0 auto;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 #footer {
-    flex: 0 0 auto;
-}
-
-.nav-wrapper {
-  & a {
-    &:hover {
-      text-decoration: none;
-      color: #000;
-      transition: all 0.3s;
-    }
-  }
-
-  &__brand {
-    margin-left: 1rem;
-    font-size: 1.5rem !important;
-  }
+  flex: 0 0 auto;
 }
 </style>

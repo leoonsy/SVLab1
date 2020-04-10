@@ -2,12 +2,12 @@
 
 return [
     'guest' => [
-        'login', 'register'
+        'login', 'logout', 'register'
     ],
     'user' => [
-        'root', 'profile'
+        'root', 'logout', 'profile'
     ],
     'admin' => [
-        'root', 'profile', 'admin'
+        'root', 'logout', 'profile', 'admin'
     ]
 ];

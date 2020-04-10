@@ -1,9 +1,5 @@
 <template>
-  <section id="section-admin">
-    <div class="container">
-        Панель администратора
-    </div>
-  </section>
+  <section id="section-admin">Панель администратора</section>
 </template>
 
 <script>
@@ -17,5 +13,7 @@ export default {
 </script>
 
 <style lang="scss">
-
+#section-admin {
+  margin: 1rem;
+}
 </style>

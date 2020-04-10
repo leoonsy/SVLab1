@@ -17,3 +17,8 @@ body,
     flex-flow: column nowrap;
     min-height: 100vh;
 }
+
+a:active,
+a:focus {
+    outline: none;
+}

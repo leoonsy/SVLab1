@@ -50,6 +50,11 @@ export default {
       try {
         await this.$store.dispatch("register", formData);
         M.toast({ html: "Успешная регистрация!" });
+        this.name = null;
+        this.password = null;
+        setTimeout(() => {
+          M.updateTextFields();
+        });
       } catch (e) {
         M.toast({ html: e.message });
       }

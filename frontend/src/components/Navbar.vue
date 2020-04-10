@@ -1,7 +1,7 @@
 <template>
   <nav>
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo nav-wrapper__brand">SOFT-VULN-LAB1</a>
+      <a href="/" class="brand-logo nav-wrapper__brand">SOFT-VULN-LAB1</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li v-for="link in shownLinks" :key="link.url" :class="[link.active ? 'active' : '']">
           <a v-if="link.name == 'logout'" @click.prevent="logout">{{ link.title }}</a>

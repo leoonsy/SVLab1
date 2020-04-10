@@ -1,6 +1,6 @@
 <template>
   <section id="section-profile">
-    <div>Добро пожаловать, <b>{{ userInfo.name }}</b>! Вы вошли как <b>{{ userInfo.role }}</b>.</div>
+    <div>Добро пожаловать, <b>{{ name }}</b>! Вы вошли как <b>{{ role }}</b>.</div>
   </section>
 </template>
 

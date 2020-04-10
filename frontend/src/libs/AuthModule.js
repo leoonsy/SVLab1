@@ -1,4 +1,5 @@
 import Axios from 'axios'
+import Config from '@/config/main';
 class AuthModule {
     /**
      * 
@@ -10,7 +11,7 @@ class AuthModule {
             var response = await Axios(
                 {
                     method: 'post',
-                    url: 'http://api.soft-vuln-lab1.ru/',
+                    url: Config.BACKEND_URL,
                     data: {
                         type: 'login',
                         name,
@@ -31,7 +32,7 @@ class AuthModule {
             var response = await Axios(
                 {
                     method: 'post',
-                    url: 'http://api.soft-vuln-lab1.ru/',
+                    url: Config.BACKEND_URL,
                     data: {
                         type: 'logout'
                     }
@@ -50,7 +51,7 @@ class AuthModule {
             var response = await Axios(
                 {
                     method: 'post',
-                    url: 'http://api.soft-vuln-lab1.ru/',
+                    url: Config.BACKEND_URL,
                     data: {
                         type: 'register',
                         name,
@@ -71,7 +72,7 @@ class AuthModule {
             let response = await Axios(
                 {
                     method: 'post',
-                    url: 'http://api.soft-vuln-lab1.ru/',
+                    url: Config.BACKEND_URL,
                     data: {
                         type: 'userInfo'
                     }

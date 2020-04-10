@@ -14,4 +14,7 @@ export default {
 };
 </script>
 <style>
+#section-main {
+  margin: 1rem;
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
   <section id="section-profile">
-    <div>Добро пожаловать, {{ userInfo.name }}! Вы вошли как {{ userInfo.role }}</div>
+    <div>Добро пожаловать, <b>{{ userInfo.name }}</b>! Вы вошли как <b>{{ userInfo.role }}</b>.</div>
   </section>
 </template>
 
@@ -27,4 +27,7 @@ export default {
 </script>
 
 <style lang="scss">
+#section-profile {
+  margin: 1rem;
+}
 </style>

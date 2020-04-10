@@ -25,7 +25,6 @@ export default {
         },
         async logout({ commit }) {
             await AuthModule.logout();
-            commit('clearUserInfo');
         }
     },
     getters: {

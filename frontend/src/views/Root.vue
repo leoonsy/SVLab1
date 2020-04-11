@@ -1,6 +1,6 @@
 <template>
   <section id="section-main">
-    <div>Список дел</div>
+    <div>Заметки</div>
   </section>
 </template>
 

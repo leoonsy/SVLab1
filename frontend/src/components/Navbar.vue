@@ -17,7 +17,7 @@ export default {
   name: "Navbar",
   data: () => ({
     links: [
-      { title: "Список дел", name: "root", url: "/" },
+      { title: "Заметки", name: "root", url: "/" },
       { title: "Профиль", name: "profile", url: "/profile" },
       { title: "Панель администратора", name: "admin", url: "/admin" },
       { title: "Выход", name: "logout" }

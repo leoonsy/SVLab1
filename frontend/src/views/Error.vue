@@ -1,9 +1,7 @@
 <template>
   <section id="section-error">
     <div class="container">
-      <div class="error">
-        Данной страницы не существует
-      </div>
+      <div class="error">{{ message }}</div>
     </div>
   </section>
 </template>
@@ -12,8 +10,21 @@
 import EmptyLayout from "@/layouts/EmptyLayout";
 export default {
   name: "Error",
-  created() {
-    this.$emit("update:layout", EmptyLayout);
+  computed: {
+    message() {
+      let results = {
+        "403": "Ошибка доступа",
+        "404": "Данной страницы не существует",
+        "500": "Внутренняя ошибка сервера"
+      };
+
+      let code = this.$route.params.code;
+      debugger;
+      if (!code || !results.hasOwnProperty(code))
+        return results['404'];
+
+      return results[code];
+    }
   }
 };
 </script>

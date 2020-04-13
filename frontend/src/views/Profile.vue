@@ -1,6 +1,6 @@
 <template>
   <section id="section-profile">
-    <div>Добро пожаловать, <b>{{ name }}</b>! Вы вошли как <b>{{ role }}</b>.</div>
+    <div>Добро пожаловать, <b>{{ username }}</b>! Вы вошли как <b>{{ role }}</b>.</div>
   </section>
 </template>
 
@@ -8,16 +8,13 @@
 import MainLayout from "@/layouts/MainLayout";
 import { mapGetters, mapActions } from 'vuex';
 export default {
-  name: "Error",
-  created() {
-    this.$emit("update:layout", MainLayout);
-  },
+  username: "Error",
   data: () => ({
-    name: "",
+    username: "",
     role: ""
   }),
   async mounted() {
-    this.name = this.userInfo.name;
+    this.username = this.userInfo.username;
     this.role = this.userInfo.role;
   },
   computed: {

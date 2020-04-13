@@ -3,18 +3,18 @@ import Config from '@/config/main';
 class AuthModule {
     /**
      * 
-     * @param {string} name 
+     * @param {string} username 
      * @param {string} password 
      */
-    static async login(name, password) {
+    static async login(username, password) {
         try {
             var response = await Axios(
                 {
                     method: 'post',
-                    url: Config.BACKEND_URL,
+                    url: `${Config.BACKEND_URL}/account.php`,
                     data: {
-                        type: 'login',
-                        name,
+                        action: 'login',
+                        username,
                         password
                     }
                 }
@@ -31,30 +31,32 @@ class AuthModule {
         try {
             var response = await Axios(
                 {
-                    method: 'post',
-                    url: Config.BACKEND_URL,
+                    method: 'delete',
+                    url: `${Config.BACKEND_URL}/account.php`,
                     data: {
-                        type: 'logout'
+                        action: 'logout'
                     }
                 }
             );
+
+            // Axios.delete(`${Config.BACKEND_URL}/account.php`, { data: { foo: "bar" } });
         }
         catch (e) {
             throw new Error('Неизвестная ошибка');
         }
         if (!response.data.success)
-            throw new Error(response.data.message);      
+            throw new Error(response.data.message);
     }
 
-    static async register(name, password) {
+    static async register(username, password) {
         try {
             var response = await Axios(
                 {
                     method: 'post',
-                    url: Config.BACKEND_URL,
+                    url: `${Config.BACKEND_URL}/account.php`,
                     data: {
-                        type: 'register',
-                        name,
+                        action: 'register',
+                        username,
                         password
                     }
                 }
@@ -71,11 +73,8 @@ class AuthModule {
         try {
             let response = await Axios(
                 {
-                    method: 'post',
-                    url: Config.BACKEND_URL,
-                    data: {
-                        type: 'userInfo'
-                    }
+                    method: 'get',
+                    url: `${Config.BACKEND_URL}/account.php?action=getUserInfo`
                 }
             );
             if (!response.data.success)
@@ -85,7 +84,7 @@ class AuthModule {
         }
         catch (e) {
             throw e;
-        }        
+        }
     }
 }
 

@@ -5,10 +5,7 @@
 <script>
 import MainLayout from "@/layouts/MainLayout";
 export default {
-  name: "Error",
-  created() {
-    this.$emit("update:layout", MainLayout);
-  }
+  name: "Error"
 };
 </script>
 

@@ -1,5 +1,5 @@
 <?php
-
+namespace core;
 abstract class Config
 {
 	const DB_HOST = "localhost";

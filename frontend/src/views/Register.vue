@@ -5,8 +5,8 @@
         <form class="register__form" @submit.prevent="register">
           <h1 class="register__title">Форма регистрации</h1>
           <div class="input-field">
-            <input id="name" type="text" class="validate" v-model="name" />
-            <label for="name">Введите логин</label>
+            <input id="username" type="text" class="validate" v-model="username" />
+            <label for="username">Введите логин</label>
           </div>
           <div class="input-field">
             <input id="password" type="password" class="validate" v-model="password" />
@@ -30,27 +30,26 @@
 import EmptyLayout from "@/layouts/EmptyLayout";
 export default {
   name: "register",
-  created() {
-    this.$emit("update:layout", EmptyLayout);
+  mounted() {
     setTimeout(() => {
       M.updateTextFields();
     });
   },
   data: () => ({
-    name: "",
+    username: "",
     password: ""
   }),
   methods: {
     async register() {
       const formData = {
-        name: this.name,
+        username: this.username,
         password: this.password
       };
 
       try {
         await this.$store.dispatch("register", formData);
         M.toast({ html: "Успешная регистрация!" });
-        this.name = null;
+        this.username = null;
         this.password = null;
         setTimeout(() => {
           M.updateTextFields();

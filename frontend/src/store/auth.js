@@ -12,12 +12,12 @@ export default {
         }
     },
     actions: {
-        async login({ dispatch }, { name, password }) {
-            await AuthModule.login(name, password);
+        async login({ dispatch }, { username, password }) {
+            await AuthModule.login(username, password);
             dispatch('updateUserInfo');
         },
-        async register(context, { password, name }) {
-            await AuthModule.register(name, password);
+        async register(context, { password, username }) {
+            await AuthModule.register(username, password);
         },
         async updateUserInfo({ commit }) {
             const userInfo = await AuthModule.getUserInfo();

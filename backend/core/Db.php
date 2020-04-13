@@ -1,8 +1,8 @@
 <?php
-
+namespace core;
+use PDO;
 class Db
 {
-
 	/**
 	 * Объект PDO
 	 *
@@ -37,6 +37,16 @@ class Db
 	}
 
 	/**
+	 * Получить прямой доступ к объекту PDO
+	 *
+	 * @return PDO
+	 */
+	public function getPDO()
+	{
+		return $this->db;
+	}
+
+	/**
 	 * Установить конфигурацию PDO
 	 *
 	 * @return void
@@ -47,7 +57,7 @@ class Db
 	}
 
 	/**
-	 * Выполнить запрос к БД
+	 * Выполнить запрос query к СУБД
 	 *
 	 * @param string $sql
 	 * @param array $params
@@ -58,6 +68,56 @@ class Db
 		$stmt = $this->db->prepare($sql);
 		$stmt->execute($params);
 		return $stmt;
+	}
+
+	private function array_any($f, $array)
+	{
+		foreach ($array as $key => $value) {
+			if ($f($value, $key) === true)
+				return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Выполнить запрос exec к СУБД
+	 *
+	 * @param string $sql
+	 * @param array $params
+	 * @return int
+	 */
+	public function exec($sql, $params = [])
+	{
+		//аналогия prepare из pdo
+		if (count($params) > 0) {
+			$isAssoc = $this->array_any(function($value, $key) {
+				if (!is_numeric($key))
+					return true;
+				return false;
+			}, $params);
+			if ($isAssoc) {
+				$search = $params;
+				$replace = array_map(function($e) {
+					return $this->quote($e);
+				}, array_values($params));
+				$resultSql = str_replace($search, $replace, $sql);
+			} else {
+				$resultSql = "";
+				$paramIndex = 0;
+				foreach (str_split($sql) as $char) {
+					if ($char == "?") {
+						$resultSql .= $this->quote($params[$paramIndex]);
+						$paramIndex++;
+					}
+					else
+						$resultSql .= $char;
+				}
+			}
+		}
+		else 
+			$resultSql = $sql;
+
+		return $this->db->exec($resultSql);
 	}
 
 	/**

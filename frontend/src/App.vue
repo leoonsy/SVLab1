@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <PageLoader></PageLoader>
-    <component :is="layout">
-      <router-view :layout.sync="layout" />
+    <component :is="this.$route.meta.layout || 'div'">
+      <router-view />
     </component>
   </div>
 </template>
@@ -11,9 +11,6 @@ import PageLoader from "@/components/PageLoader";
 
 export default {
   name: "App",
-  data: () => ({
-    layout: "div"
-  }),
   components: {
     PageLoader
   }

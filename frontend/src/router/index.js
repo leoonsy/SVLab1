@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import AuthModule from '@/libs/AuthModule'
 import store from '@/store'
+import EmptyLayout from '@/layouts/EmptyLayout'
+import MainLayout from '@/layouts/MainLayout'
 
 Vue.use(VueRouter)
 
@@ -9,32 +11,50 @@ const routes = [
   {
     path: '/',
     name: 'root',
-    component: () => import('@/views/Root.vue')
+    component: () => import('@/views/Root.vue'),
+    meta: {
+      layout: MainLayout
+    }
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/Login.vue')
+    component: () => import('@/views/Login.vue'),
+    meta: {
+      layout: EmptyLayout
+    }
   },
   {
     path: '/register',
     name: 'register',
-    component: () => import('@/views/Register.vue')
+    component: () => import('@/views/Register.vue'),
+    meta: {
+      layout: EmptyLayout
+    }
   },
   {
     path: '/profile',
     name: 'profile',
-    component: () => import('@/views/Profile.vue')
+    component: () => import('@/views/Profile.vue'),
+    meta: {
+      layout: MainLayout
+    }
   },
   {
     path: '/admin',
     name: 'admin',
-    component: () => import('@/views/Admin.vue')
+    component: () => import('@/views/Admin.vue'),
+    meta: {
+      layout: MainLayout
+    }
   },
   {
     path: '*',
     name: 'error',
-    component: () => import('@/views/Error.vue')
+    component: () => import('@/views/Error.vue'),
+    meta: {
+      layout: EmptyLayout
+    }
   },
 ]
 
@@ -59,7 +79,14 @@ router.beforeEach(async (to, from, next) => {
     return;
   };
 
-  const userInfo = await AuthModule.getUserInfo();
+  try {
+    var userInfo = await AuthModule.getUserInfo();
+  }
+  catch (e) {
+    next({ name: "error", params: { code: '500' } });
+    return;
+  }
+
   store.commit("setUserInfo", userInfo);
   if (userInfo.accessPages.includes(to.name))
     next();

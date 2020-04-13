@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './auth'
+import notes from './notes'
 
 Vue.use(Vuex)
 
@@ -19,6 +20,6 @@ export default new Vuex.Store({
     loading: s => s.loading
   },
   modules: {
-    auth
+    auth, notes
   }
 })

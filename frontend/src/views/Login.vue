@@ -5,8 +5,8 @@
         <form class="login__form" @submit.prevent="login">
           <h1 class="login__title">Форма входа</h1>
           <div class="input-field">
-            <input id="name" type="text" class="validate" v-model="name" />
-            <label for="name">Введите логин</label>
+            <input id="username" type="text" class="validate" v-model="username" />
+            <label for="username">Введите логин</label>
           </div>
           <div class="input-field">
             <input id="password" type="password" class="validate" v-model="password" />
@@ -30,20 +30,14 @@
 import EmptyLayout from "@/layouts/EmptyLayout";
 export default {
   name: "Login",
-  created() {
-    this.$emit("update:layout", EmptyLayout);
-    setTimeout(() => {
-      M.updateTextFields();
-    });
-  },
   data: () => ({
-    name: "",
+    username: "",
     password: ""
   }),
   methods: {
     async login() {
       const formData = {
-        name: this.name,
+        username: this.username,
         password: this.password
       };
 

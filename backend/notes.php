@@ -53,8 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 
     switch ($_PUT['action']) {
         case 'updateNote':
-            $id = $_PUT['id'] ?? null;
-            if (!$id)
+            $noteId = $_PUT['id'] ?? null;
+            if (!$noteId)
                 sendResponse(['success' => false, 'message' => 'Неверные входные параметры']);
 
             $updatedNote = Notes::getNote($noteId);
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
                 sendResponse(['success' => false, 'message' => 'Нет прав']);
 
             $note = new Note();
-            $note->setNote($id, null, $_PUT['name'] ?? null, $_PUT['description'] ?? null, time());
+            $note->setNote($noteId, null, $_PUT['name'] ?? null, $_PUT['description'] ?? null, time());
             Notes::updateNote($note);
 
             sendResponse(['success' => true]);
@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
 
     switch ($_DELETE['action']) {
         case 'deleteNote':
-            $noteId = $_DELETE['noteId'] ?? null;
+            $noteId = $_DELETE['id'] ?? null;
             if (!$noteId)
                 sendResponse(['success' => false, 'message' => 'Неверные входные параметры']);
 

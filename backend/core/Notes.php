@@ -36,7 +36,7 @@ class Notes
     {
         $db = Db::getDBO();
         try {
-            $note = $db->getFirst("SELECT * FROM notes WHERE id = ?", [$noteId], PDO::FETCH_CLASS, 'Note');
+            $note = $db->getFirst("SELECT id, name, description, date, user_id as userId FROM notes WHERE id = ?", [$noteId], PDO::FETCH_CLASS, 'model\Note');
         } catch (Exception $e) {
             throw new Exception("Произошла неизвестная ошибка");
         }

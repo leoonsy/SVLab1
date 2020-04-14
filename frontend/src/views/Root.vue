@@ -1,26 +1,24 @@
 <template>
-  <section id="section-main">
-    <!-- <div class="notes">
-      <div class="note">
-        <div class="note__header">
-          <input class="note__name" type="text" placeholder="Имя заметки" />
-          <i class="material-icons note__icon note__save">save</i>
-          <i class="material-icons note__icon note__delete">delete_forever</i>
-        </div>
-        <textarea class="note__description" placeholder="Введите описание"></textarea>
-      </div>
-    </div>-->
+  <section id="section-main" :class="[loading ? 'loading' : '']">
     <div class="notes">
       <div class="note" v-for="note of notes" :key="note.id">
         <div class="note__header">
-          <input class="note__name" type="text" placeholder="Имя заметки" :value="note.name" />
-          <i class="material-icons note__icon note__save">save</i>
-          <i class="material-icons note__icon note__delete">delete_forever</i>
+          <input class="note__name" type="text" placeholder="Имя заметки" v-model="note.name" :disabled="loading" />
+          <i class="material-icons note__icon note__save" @click="updateNote(note)">save</i>
+          <i
+            class="material-icons note__icon note__delete"
+            @click="deleteNote(note.id)"
+          >delete_forever</i>
         </div>
-        <textarea class="note__description" placeholder="Введите описание" :value="note.description"></textarea>
+        <textarea
+          class="note__description"
+          placeholder="Введите описание"
+          v-model="note.description"
+          :disabled="loading"
+        ></textarea>
       </div>
     </div>
-    <button class="waves-effect waves-light btn" @click="addNote">Добавить заметку</button>
+    <button class="waves-effect waves-light btn" @click="addNote" :disabled="loading">Добавить заметку</button>
   </section>
 </template>
 
@@ -30,14 +28,47 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Root",
   async mounted() {
-    await this.$store.dispatch("getNotes");
+    try {
+      this.$store.commit("setLoading", true);
+      await this.$store.dispatch("getNotes");
+      this.$store.commit("setLoading", false);
+    } catch (e) {
+      M.toast({ html: e.message });
+    }
   },
   computed: {
-    ...mapGetters(["notes"])
+    ...mapGetters(["notes", "loading"])
   },
   methods: {
-    addNote() {
-      this.$store.dispatch("addNote");
+    async addNote() {
+      try {
+        this.$store.commit("setLoading", true);
+        await this.$store.dispatch("addNote");
+        this.$store.commit("setLoading", false);
+        M.toast({ html: "Заметка успешно добавлена" });
+      } catch (e) {
+        M.toast({ html: e.message });
+      }
+    },
+    async deleteNote(noteId) {
+      try {
+        this.$store.commit("setLoading", true);
+        await this.$store.dispatch("deleteNote", noteId);
+        this.$store.commit("setLoading", false);
+        M.toast({ html: "Заметка успешно удалена" });
+      } catch (e) {
+        M.toast({ html: e.message });
+      }
+    },
+    async updateNote(note) {
+      try {
+        this.$store.commit("setLoading", true);
+        await this.$store.dispatch("updateNote", note);
+        this.$store.commit("setLoading", false);
+        M.toast({ html: "Заметка успешно сохранена" });
+      } catch (e) {
+        M.toast({ html: e.message });
+      }
     }
   }
 };
@@ -45,6 +76,10 @@ export default {
 <style lang="scss">
 #section-main {
   margin: 1rem;
+
+  &.loading {
+    opacity: .5;
+  }
 }
 
 .notes {

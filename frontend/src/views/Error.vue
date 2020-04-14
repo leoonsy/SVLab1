@@ -19,7 +19,6 @@ export default {
       };
 
       let code = this.$route.params.code;
-      debugger;
       if (!code || !results.hasOwnProperty(code))
         return results['404'];
 

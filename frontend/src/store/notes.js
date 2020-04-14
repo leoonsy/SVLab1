@@ -10,6 +10,14 @@ export default {
         },
         clearNotes(state) {
             state.notes = [];
+        },
+        clearNote(state, id) {
+            state.notes = state.notes.filter(e => e.id != id);
+        },
+        updateNote(state, {id, name, description}) {
+            let note = state.notes.find(e => e.id == id);
+            note.name = name;
+            note.description = description;
         }
     },
     actions: {
@@ -29,10 +37,12 @@ export default {
 
         async deleteNote({ commit }, id) {
             await NotesModule.deleteNote(id);
+            commit('clearNote', id)
         },
 
         async updateNote({ commit }, { id, name, description }) {
             await NotesModule.updateNote(id, name, description);
+            commit('updateNote', { id, name, description });
         }
     },
     getters: {

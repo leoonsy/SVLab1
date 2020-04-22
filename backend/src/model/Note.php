@@ -1,5 +1,5 @@
 <?php
-namespace model;
+namespace app\model;
 
 class Note {
     public $id;

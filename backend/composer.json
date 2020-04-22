@@ -1,0 +1,15 @@
+{
+    "name": "leoon/svnbackend",
+    "authors": [
+        {
+            "name": "leoonsy",
+            "email": "yashanovsky.sergey@ya.ru"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "app\\": "src"
+        }
+    }
+}

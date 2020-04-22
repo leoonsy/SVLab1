@@ -1,7 +1,7 @@
 <?php
-namespace core;
+namespace app\core;
 
-use model\Note;
+use app\model\Note;
 use PDO;
 use Exception;
 
@@ -17,7 +17,7 @@ class Notes
     {
         $db = Db::getDBO();
         try {
-            $notes = $db->getAll("SELECT id, user_id as userId, name, description, date FROM notes WHERE user_id = ?", [$userId], PDO::FETCH_CLASS, 'model\Note');
+            $notes = $db->getAll("SELECT id, user_id as userId, name, description, date FROM notes WHERE user_id = ?", [$userId], PDO::FETCH_CLASS, 'app\model\Note');
             return $notes;
         } catch (Exception $e) {
             throw new Exception("Произошла неизвестная ошибка");
@@ -36,7 +36,7 @@ class Notes
     {
         $db = Db::getDBO();
         try {
-            $note = $db->getFirst("SELECT id, name, description, date, user_id as userId FROM notes WHERE id = ?", [$noteId], PDO::FETCH_CLASS, 'model\Note');
+            $note = $db->getFirst("SELECT id, name, description, date, user_id as userId FROM notes WHERE id = ?", [$noteId], PDO::FETCH_CLASS, 'app\model\Note');
         } catch (Exception $e) {
             throw new Exception("Произошла неизвестная ошибка");
         }

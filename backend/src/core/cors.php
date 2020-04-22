@@ -1,5 +1,5 @@
 <?php
-use core\Config;
+use app\core\Config;
 
 header('Access-Control-Allow-Origin:  ' . Config::FRONTEND_URL);
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');

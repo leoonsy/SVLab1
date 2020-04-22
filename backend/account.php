@@ -1,11 +1,11 @@
 <?php
 
-use core\Auth;
+use app\core\Auth;
 
-require_once 'core/autoload.php';
-require_once 'core/cors.php';
-require_once 'core/rest.php';
-require_once 'core/apiCommon.php';
+require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/src/core/cors.php';
+require_once __DIR__ . '/src/core/rest.php';
+require_once __DIR__ . '/src/core/apiCommon.php';
 
 $auth = new Auth();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

@@ -1,13 +1,13 @@
 <?php
 
-use core\Auth;
-use core\Notes;
-use model\Note;
+use app\core\Auth;
+use app\core\Notes;
+use app\model\Note;
 
-require_once 'core/autoload.php';
-require_once 'core/cors.php';
-require_once 'core/rest.php';
-require_once 'core/apiCommon.php';
+require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/src/core/cors.php';
+require_once __DIR__ . '/src/core/rest.php';
+require_once __DIR__ . '/src/core/apiCommon.php';
 
 $auth = new Auth();
 

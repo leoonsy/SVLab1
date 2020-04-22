@@ -1,10 +1,8 @@
 <?php
 
-namespace core;
+namespace app\core;
 
-use core\Config;
-use core\Db;
-use model\User;
+use app\core\Db;
 use Exception;
 use PDO;
 
@@ -23,7 +21,7 @@ class Auth
      */
     public function getAccessPages($role)
     {
-        $accessPages = require_once 'acl/pages.php';
+        $accessPages = require_once __DIR__ . '/../acl/pages.php';
         return $accessPages[$role];
     }
 
@@ -77,7 +75,7 @@ class Auth
     {
         $db = Db::getDBO();
         try {
-            $user = $db->getFirst("SELECT u.id, u.username, u.password, r.role FROM users u JOIN roles r ON u.role_id = r.id AND username = ?", [$username], PDO::FETCH_CLASS, 'model\User');
+            $user = $db->getFirst("SELECT u.id, u.username, u.password, r.role FROM users u JOIN roles r ON u.role_id = r.id AND username = ?", [$username], PDO::FETCH_CLASS, 'app\model\User');
         } catch (Exception $e) {
             throw new Exception("Произошла неизвестная ошибка");
         }
